@@ -18,7 +18,7 @@ app.get('/a', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.render('index')
 })
 
 app.listen(PORT, () => {

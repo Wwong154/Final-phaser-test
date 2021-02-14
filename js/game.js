@@ -27,9 +27,10 @@ class Title extends Phaser.Scene
           a.setOrigin(0); //to replace auto offset
           a.body.width = area.width; //body of the physics body
           a.body.height = area.height;
+          a.id = 10 //add store_id to do ajax call
       });
       storeAreaGroup.refresh(); //physics body needs to refresh
-      console.log(storeAreaGroup);
+      console.log(storeAreaGroup.children.entries[0].id);//example of storeArea's id path
 
       //add other layer to overwrite obj layer
       this.tileset = this.map.addTilesetImage('b2a48f88a662593f2ed0ae2f609906a1_a20e10b34f8b9f083be0f1faf36b6f5d', 'tile')

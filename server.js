@@ -13,6 +13,7 @@ app.use(morgan('dev'));
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
+app.use(express.static("assets"));
 
 app.get('/a', (req, res) => {
   res.send('Hello!')

@@ -28,7 +28,7 @@ class Title extends Phaser.Scene
           a.setOrigin(0); //to replace auto offset
           a.body.width = area.width; //body of the physics body
           a.body.height = area.height;
-          a.id = 10 //add store_id to do ajax call
+          a.id = area.id //add store_id to do ajax call
       });
       storeAreaGroup.refresh(); //physics body needs to refresh
       console.log(storeAreaGroup.children.entries[0].id);//example of storeArea's id path
@@ -97,6 +97,8 @@ class Title extends Phaser.Scene
       }
       if(this.overlap === true && this.cursors.space.isDown) {
         this.overlap = false
+        let newAnim = this.player.anims.currentAnim.key.split('-') // change anime to idle
+        this.player.play("idle-" + newAnim[1])
         if($("#store-data").length === 0){ // allow user to open 1 window only
           this.inshop = true
           $("#game-container").append(`

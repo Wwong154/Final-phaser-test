@@ -7,6 +7,7 @@ class Title extends Phaser.Scene
     static player = Phaser.Physics.Arcade.Sprite
     static overlap = true;
     static inshop = false;
+    static storeId;
 
     preload () {
       this.load.tilemapTiledJSON("map", "map/temp.json")
@@ -15,24 +16,25 @@ class Title extends Phaser.Scene
       this.cursors = this.input.keyboard.createCursorKeys();
       this.load.html('store_window', 'html/store_window.html');
     }
-
+    
     create ()
     { 
       this.map = this.make.tilemap({ key: "map" });
       //add object layer first. 
       let storesArea = this.map.getObjectLayer('Object Layer 1')['objects'];
       let storeAreaGroup = this.physics.add.staticGroup({});
-      let i = 0;
       storesArea.forEach(area => {
       let a = storeAreaGroup.create(area.x, area.y);
           a.setScale(area.width/32, area.height/32);
           a.setOrigin(0); //to replace auto offset
           a.body.width = area.width; //body of the physics body
           a.body.height = area.height;
-          a.id = area.id //add store_id to do ajax call
+          a.name = area.properties[0].value //add store_id as name to do ajax call, 
+          //please note, this store_id must be set as first custom_property in tile
+          //overlap cb does not return id for some reason, so use name
       });
       storeAreaGroup.refresh(); //physics body needs to refresh
-      console.log(storeAreaGroup.children.entries[0].id);//example of storeArea's id path
+      console.log(storeAreaGroup.children.entries[0].name);//example of storeArea's store_id path
 
       //add other layer to overwrite obj layer
       this.tileset = this.map.addTilesetImage('b2a48f88a662593f2ed0ae2f609906a1_a20e10b34f8b9f083be0f1faf36b6f5d', 'tile')
@@ -90,7 +92,7 @@ class Title extends Phaser.Scene
       this.cameras.main.setZoom(3); //zoom in
       
       //add overlapArea detect
-      this.physics.add.overlap(this.player, storeAreaGroup, (x) => {console.log(x);this.overlap = true;}, undefined, this); //check overlap with store area, change overlap to true
+      this.physics.add.overlap(this.player, storeAreaGroup, (x, y) => {this.storeId = y.name;this.overlap = true;}, undefined, this); //check overlap with store area, change overlap to true
 
       //add collider with player
       this.physics.add.collider(this.player, this.wallLayer); 
@@ -107,6 +109,7 @@ class Title extends Phaser.Scene
       if(this.overlap === true && this.cursors.space.isDown) {//if player is on interact area and press space
         let newAnim = this.player.anims.currentAnim.key.split('-') // change anime to idle
         this.player.play("idle-" + newAnim[1])
+        console.log(this.storeId)
         if($("#store-data").length === 0){ // allow user to open 1 window only
           this.inshop = true //set inshop true, to 'pause' game
           this.cameras.main.setZoom(1); //zoom out cause phaser dom is weird
@@ -165,7 +168,9 @@ class Title extends Phaser.Scene
 
 const config = {
     type: Phaser.AUTO,
+    
     scale: {
+      autoCenter: Phaser.Scale.CENTER_BOTH,
       mode: Phaser.Scale.FIT,
       width: 1280,
       height: 960,

@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":30,
  "infinite":false,
  "layers":[
@@ -38,13 +45,53 @@
                 {
                  "height":93,
                  "id":3,
-                 "name":"",
+                 "name":"2",
+                 "properties":[
+                        {
+                         "name":"store_id",
+                         "type":"int",
+                         "value":9
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":88,
-                 "x":485,
-                 "y":193
+                 "x":483.666666666667,
+                 "y":196.333333333333
+                }, 
+                {
+                 "height":267,
+                 "id":9,
+                 "name":"3",
+                 "properties":[
+                        {
+                         "name":"store_id",
+                         "type":"int",
+                         "value":10
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":245,
+                 "x":849,
+                 "y":123
+                }, 
+                {
+                 "height":255,
+                 "id":10,
+                 "name":"1",
+                 "properties":[
+                        {
+                         "name":"store_id",
+                         "type":"int",
+                         "value":11
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":652,
+                 "x":328,
+                 "y":653
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -53,7 +100,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

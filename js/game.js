@@ -4,7 +4,7 @@ class Title extends Phaser.Scene
     {
         super();
     }
-    static player = Phaser.Physics.Arcade.Sprite
+    static player = Phaser.Physics.Arcade.Sprite;
     static overlap = true;
     static inshop = false;
     static storeId;
@@ -14,6 +14,7 @@ class Title extends Phaser.Scene
       this.load.image('tile', 'tiles/season.png')
       this.load.spritesheet('fm_02', 'skins/fm_02.png', { frameWidth: 32, frameHeight: 32})
       this.cursors = this.input.keyboard.createCursorKeys();
+      this.key = this.input.keyboard.addKeys("W, A, S, D")
       this.load.html('store_window', 'html/store_window.html');
     }
     
@@ -121,25 +122,25 @@ class Title extends Phaser.Scene
         })
       }
       this.player.setVelocity(0);
-      if (this.cursors.left.isDown)
+      if (this.cursors.left.isDown || this.key.A.isDown)
       {
         this.player.setVelocityX(-200);
         if (this.player.anims.currentAnim.key === 'walk-l') {} 
-        else if (this.cursors.up.isDown || this.cursors.down.isDown) 
+        else if (this.cursors.up.isDown || this.cursors.down.isDown || this.key.W.isDown || this.key.S.isDown) 
         {} else {
           this.player.play('walk-l')
         }
       }
-      else if (this.cursors.right.isDown)
+      else if (this.cursors.right.isDown || this.key.D.isDown)
       {
         this.player.setVelocityX(200);
         if (this.player.anims.currentAnim.key === 'walk-r') {} 
-        else if (this.cursors.up.isDown || this.cursors.down.isDown) 
+        else if (this.cursors.up.isDown || this.cursors.down.isDown || this.key.W.isDown || this.key.S.isDown) 
         {} else {
           this.player.play('walk-r')
         }
       }
-      if (this.cursors.up.isDown)
+      if (this.cursors.up.isDown || this.key.W.isDown)
       {
         this.player.setVelocityY(-200);
         if (this.player.anims.currentAnim.key === 'walk-u') {} 
@@ -147,7 +148,7 @@ class Title extends Phaser.Scene
           this.player.play('walk-u')
         }
       }
-      else if (this.cursors.down.isDown)
+      else if (this.cursors.down.isDown || this.key.S.isDown)
       {
         this.player.setVelocityY(200);
         if (this.player.anims.currentAnim.key === 'walk-d') {} 
@@ -155,7 +156,7 @@ class Title extends Phaser.Scene
           this.player.play('walk-d')
         }
       }
-      if (!this.cursors.down.isDown && !this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {//if no arrow input, change to idle anime
+      if (!this.cursors.down.isDown && !this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown && !this.key.W.isDown && !this.key.A.isDown && !this.key.S.isDown && !this.key.D.isDown) {//if no arrow input, change to idle anime
         if (!this.player.anims.currentAnim.key.includes('idle')){
           let newAnim = this.player.anims.currentAnim.key.split('-')
           this.player.play("idle-" + newAnim[1])

@@ -14,7 +14,7 @@ class Title extends Phaser.Scene
       this.load.image('tile', 'tiles/season.png')
       this.load.spritesheet('fm_02', 'skins/fm_02.png', { frameWidth: 32, frameHeight: 32})
       this.cursors = this.input.keyboard.createCursorKeys();
-      this.key = this.input.keyboard.addKeys("W, A, S, D")
+      this.key = this.input.keyboard.addKeys("W, A, S, D, ESC")
       this.load.html('store_window', 'html/store_window.html');
     }
     
@@ -103,6 +103,10 @@ class Title extends Phaser.Scene
     {
       this.cameras.main.centerOn(this.player.x, this.player.y); //set camera to the player
       if(this.inshop) { //when in shop stop
+        if (this.key.ESC.isDown) {
+          $("canvas").prev().children().remove()
+          this.inshop = false;
+        }
         this.cameras.main.setZoom(1); //while in shop, stay zoom out
         this.player.setVelocity(0); //no player movement allow
         return; //end update

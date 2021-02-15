@@ -91,7 +91,24 @@ class Title extends Phaser.Scene
     update () 
     {
       if(this.overlap === true && this.cursors.space.isDown) {
-        // add ajax call
+        this.overlap = false
+        if($("#store-data").length === 0){ // allow user to open 1 window only
+          $("#game-container").append(`
+            <div id="store-data" style="position:absolute; top:10%; left:35%; width:30%;height: 70%;
+            border: 2px solid red; background: white; margin-left: 50px;">
+            Store Data
+            <ul style="text-align: left;">
+                <li>Suits</li>
+                <li>Shoes</li>
+                <li>Shirts</li>
+            </ul>
+            <button id="request-data">get data</button>
+            <button id="close-button">close</button>
+            </div>`)
+          $("#close-button").on("click", () => {
+              $("#store-data").remove()
+          })
+        }
       }
       this.player.setVelocity(0);
       if (this.cursors.left.isDown)

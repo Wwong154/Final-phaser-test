@@ -18,12 +18,11 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background-image: url(https://i.imgur.com/S4n5gB9.jpg);
-  background-color: purple;
   background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height:20%; 
+  height:15%; 
 }
 
 #store_banner > h1 {
@@ -52,7 +51,7 @@
 }
 
 #close-button > span {
-  text-align: center;
+  align-self: center;
   color: #252525;
   display: inline-block;
   vertical-align: middle;
@@ -84,10 +83,50 @@
 }
 
 #products {
+  display: flex;
   position:fixed;
-  top: 240px;
+  top: 192px;
   left: 64px;
   width: 90%;
-  height: 70%;
+  height: 75%;
   overflow: auto;
+}
+
+#customer-support {
+  position:fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 250px;
+  left: 1120px;
+
+}
+
+#customer-support > div {
+  align-self: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  background-image: url(/icon/phone.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #bbbbbb;
+  border: black solid 3px ;
+  opacity: 0.65;
+}
+
+#customer-support > div:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+#customer-support > p {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  white-space: pre;
+  width: 50 px;
+  overflow: auto;
+  text-align: center;
+  font-size: small;
 }

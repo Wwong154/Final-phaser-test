@@ -84,7 +84,7 @@ class Title extends Phaser.Scene
       this.player = this.physics.add.sprite(400, 300, "fm_02")
       this.player.play('idle-d') // play idle-d as default 
 
-      this.physics.add.overlap(this.player, storeAreaGroup, () => this.overlap = true, undefined, this); //check overlap with store area, change overlap to true
+      this.physics.add.overlap(this.player, storeAreaGroup, (x) => {console.log(x);this.overlap = true;}, undefined, this); //check overlap with store area, change overlap to true
 
       this.physics.add.collider(this.player, this.wallLayer); //add collider to wallLayer with player
     }

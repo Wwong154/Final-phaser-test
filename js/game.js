@@ -6,6 +6,7 @@ class Title extends Phaser.Scene
     }
     static player = Phaser.Physics.Arcade.Sprite
     static overlap = true;
+    static inshop = false;
 
     preload () {
       this.load.tilemapTiledJSON("map", "map/temp.json")
@@ -90,9 +91,14 @@ class Title extends Phaser.Scene
 
     update () 
     {
+      if(this.inshop) {
+        this.player.setVelocity(0);
+        return;
+      }
       if(this.overlap === true && this.cursors.space.isDown) {
         this.overlap = false
         if($("#store-data").length === 0){ // allow user to open 1 window only
+          this.inshop = true
           $("#game-container").append(`
             <div id="store-data" style="position:absolute; top:10%; left:35%; width:30%;height: 70%;
             border: 2px solid red; background: white; margin-left: 50px;">
@@ -107,6 +113,7 @@ class Title extends Phaser.Scene
             </div>`)
           $("#close-button").on("click", () => {
               $("#store-data").remove()
+              this.inshop = false;
           })
         }
       }
